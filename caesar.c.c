@@ -3,6 +3,7 @@
 void rotate(char *letter); 
 void rotate2(char *letter);
 void encoder(char *inputText, int key);
+void decoderKey(char *inputText, )
 
 int main(){   
     char inputText[100] = "hello";
