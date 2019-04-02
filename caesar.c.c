@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-void rotate(char *letter, int key);
+//void rotate(char *letter, int key);
 void encoder(char *inputText, int key);
-void incrementLetter(char *inputText, int key);
+void decoder(char *inputText, int key);
 
 int main(){   
-    char inputText[100] = "hello";
-    int key = 5;        //hardcoded atm
+    char inputText[100] = "HELLO THERE";
+    int key = 3;        //hardcoded atm
     //char letter[50]={'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
     int i;
         
@@ -15,47 +15,53 @@ int main(){
     for (i = 0; i <= 26; i++)
         printf("%c ", letter[i]); */
     
-    incrementLetter(inputText, key);
+    encoder(inputText, key);
+    for (i = 0; i <= 26; i++)
+        printf("%c ", inputText[i]);
+    
+    decoder(inputText, key);
     for (i = 0; i <= 26; i++)
         printf("%c ", inputText[i]);
     
     return 0;
 }
 
-
-void incrementLetter(char *inputText, int key){
-    int n;
-    for(n = 0; inputText[n] == 0; n++){
-        inputText[n] = inputText[n] - 1 - key;
-        if(inputText[n] < 'A'){
-           inputText[n] = inputText[n] + 26;
-        }
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
 //--------------------------------------------------------------------------//
 
 void encoder(char *inputText, int key){
     int n = 0;
-    while((inputText[n] >= 'A') && (inputText[n] <= 'z')){
+    while(((inputText[n] >= 'A') && (inputText[n] <= 'Z')) || (inputText[n] == ' ')){
+        if(inputText[n] == ' '){
+            inputText[n] = inputText[n] + 1 + key - 26;
+        }
         inputText[n] = inputText[n] - 1 - key;
+        if(inputText[n] < 'A'){
+           inputText[n] = inputText[n] + 26;
+        }
         n++;
-    }
+    }   
 }
 
 //--------------------------------------------------------------------------//
 
+void decoder(char *inputText, int key){
+    int n = 0;
+    while(((inputText[n] >= 'A') && (inputText[n] <= 'Z')) || (inputText[n] == ' ')){ 
+        if(inputText[n] == ' '){
+            inputText[n] = inputText[n] - 1 - key - 26;
+        }
+        inputText[n] = inputText[n] + 1 + key;
+        if(inputText[n] < 'A'){
+            inputText[n] = inputText[n] + 26;
+        }else if(inputText[n] > 'Z'){
+            inputText[n] = inputText[n] - 26; 
+        }
+        n++;
+    }   
+}
+
+//--------------------------------------------------------------------------//
+/*
 void rotate(char *letter, int key){
     int n;
     for(n = 26; n >= 0; n--){
@@ -66,8 +72,8 @@ void rotate(char *letter, int key){
        }
     }
 }
-
-
+}
+*/
 
 
 
