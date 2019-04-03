@@ -3,13 +3,13 @@
 #include <stdlib.h>
 void encoder(char *inputText, int key);
 void decoder(char *inputText, int key);
-void subDecoder(char *inputText, char *wordMap);
+void subDecoder(char *inputText, int *wordMap);
 
 int main(){   
     char inputText[100] = "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG";
     int key = 1;        //hardcoded atm
     int i;
-    char wordMap[20];
+    int wordMap[10];
 
             
     printf("Input  : ");
@@ -26,42 +26,36 @@ int main(){
     for (i = 0; i <= 99; i++)
         printf("%c ", inputText[i]);
     
+    subDecoder(inputText, wordMap);
+    
     printf("\nWord Map: ");
-    for (i = 0; i <= 99; i++)
-        printf("%c ", wordMap[i]);
+    for (i = 0; i <= 10; i++)
+        printf("%d ", wordMap[i]);
     
     return 0;
 }
 
 //-----------------------------------------------------------------------------------------------------------//
 
-void subDecoder(char *inputText, char *wordMap){
+void subDecoder(char *inputText, int *wordMap){
     int c = 0, n;
     
-    for(c = 0; c < 100; c++){
-        wordMap[c] = 0;   
-    }
-    
-    c = 0;
-    
+ 
+
     for(n = 0; n < 100; n++){
-        if(inputText[n] == ' '){
-            c++;
-        }else if((inputText[n] >= 'A') && (inputText[n] <= 'Z')){               //here------------------------------------------------
+        if(inputText[n] < ' '){
+            break;
+        }else if(inputText[n] != ' '){
             wordMap[c] = wordMap[c] + 1;
+        }else{
+            c++;
         }
-    
+    }
 }
 
     
     
     
-    
-    
-}
-
-
-
 
 
 
