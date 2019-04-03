@@ -1,7 +1,6 @@
 //-------------------------Dakota-----------------------------//
 #include <stdio.h>
 #include <stdlib.h>
-//void rotate(char *letter, int key);
 void encoder(char *inputText, int key);
 void decoder(char *inputText, int key);
 void subDecoder(char *inputText, char *wordMap);
@@ -9,7 +8,6 @@ void subDecoder(char *inputText, char *wordMap);
 int main(){   
     char inputText[100] = "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG";
     int key = 1;        //hardcoded atm
-    //char letter[50]={'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
     int i;
     char wordMap[20];
 
@@ -49,7 +47,7 @@ void subDecoder(char *inputText, char *wordMap){
     for(n = 0; n < 100; n++){
         if(inputText[n] == ' '){
             c++;
-        }else if((inputText[n] >= 'A') && (inputText[n] <= 'Z')){
+        }else if((inputText[n] >= 'A') && (inputText[n] <= 'Z')){               //here------------------------------------------------
             wordMap[c] = wordMap[c] + 1;
         }
     
@@ -103,20 +101,5 @@ void decoder(char *inputText, int key){
         n++;
     }   
 }
-
-//--------------------------------------------------------------------------//
-/*
-void rotate(char *letter, int key){
-    int n;
-    for(n = 26; n >= 0; n--){
-       letter [n] = letter[n] - 1 - key; 
-       
-       if(letter[n] < 'A'){
-           letter[n] = letter[n] + 26;
-       }
-    }
-}
-}
-*/
 
 
