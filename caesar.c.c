@@ -3,13 +3,15 @@
 #include <stdlib.h>
 void keyEncoder(char *inputText, int key);
 void keyDecoder(char *inputText, int key);
-void rotDecoder(char *inputText);
+void rotDecoder(char *inputText, int limit, int key);
 void subDecoder(char *inputText, int *wordMap);
+
 
 int main(){
     char inputText[100];
-    int key = 3;        //hardcoded atm
+    int key = 23;        //hardcoded atm
     int i;
+    int limit;
     //int wordMap[10];
     
     FILE *input/*, output*/;
@@ -28,6 +30,7 @@ int main(){
         c = &inputText[i];
         printf("%d ", i);
         fscanf(input, "%c", c);
+        limit = i;
         
     }
         printf("\n");
@@ -42,34 +45,48 @@ int main(){
     for (i = 0; i <= 99; i++)
         printf("%c ", inputText[i]);
         
-    for(key = 0; key = 25; key++){
-        printf("\nDecoded: ");
-        keyDecoder(inputText, key);
+    rotDecoder(inputText, limit, key);
+        
+    printf("\nDecoded: ");
+    keyDecoder(inputText, key);
         for (i = 0; i <= 99; i++)
             printf("%c ", inputText[i]);
     }
     
     
+    
+    
     /*printf("\nWord Map: ");
     for (i = 0; i <= 8; i++)        //change 8 to bigger number, 8 atm to stop '0 0 0 0...'
-        printf("%d ", wordMap[i]); */
+        printf("%d ", wordMap[i]);
     
     return 0;
-}
+}*/
 
 //---------------------------------------------rotDecoder-----------------------------------------------------//
-/*void rotDecoder(char *inputText){       //similiar to keyDecoder but will run until all the words are real, option to say no this isnt it
+void rotDecoder(char *inputText, int limit, int key){       //similiar to keyDecoder but will run until all the words are real, option to say no this isnt it
     int n = 0;
-    int key = 3;
-    
-    
-    
+    for(n = 0; n < limit; n++){
+        
+        if(inputText[n + 1] == ' '){
+            break;
+        }else if(inputText[n + 1] < 'A'){
+            inputText[n + 1] = inputText[n + 1] + 26; 
+        }else if(inputText[n + 2] == ' '){
+            break;
+        }else if(inputText[n + 2] < 'A'){
+            inputText[n + 2] = inputText[n + 2] + 26;    
         }
-
+        
+        if((inputText[n + 1] == inputText[n] - 12) && (inputText[n + 2] == inputText[n] - 15)){
+            if('T' > inputText[n]){
+                key = inputText[n] - 'T';
+                return;
+            }
+        }  
     }
 }
 
-*/
 
 
 //---------------------------------------------subDecoder------------------------------------------------------//
@@ -123,9 +140,9 @@ void keyEncoder(char *inputText, int key){
     int n = 0;
     while(((inputText[n] >= 'A') && (inputText[n] <= 'Z')) || (inputText[n] == ' ')){
         if(inputText[n] == ' '){
-            inputText[n] = inputText[n] - 2 + key - 26;
+            inputText[n] = inputText[n] + key - 26;
         }
-        inputText[n] = inputText[n] + 2 - key;
+        inputText[n] = inputText[n] - key;
         if(inputText[n] < 'A'){
            inputText[n] = inputText[n] + 26;
         }else if(inputText[n] > 'Z'){
@@ -141,9 +158,9 @@ void keyDecoder(char *inputText, int key){
     int n = 0;
     while(((inputText[n] >= 'A') && (inputText[n] <= 'Z')) || (inputText[n] == ' ')){ 
         if(inputText[n] == ' '){
-            inputText[n] = inputText[n] + 2 - key - 26;
+            inputText[n] = inputText[n] - key - 26;
         }
-        inputText[n] = inputText[n] - 2 + key;
+        inputText[n] = inputText[n] + key;
         if(inputText[n] < 'A'){
             inputText[n] = inputText[n] + 26;
         }else if(inputText[n] > 'Z'){
