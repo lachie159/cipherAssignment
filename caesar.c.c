@@ -3,15 +3,17 @@
 #include <stdlib.h>
 void keyEncoder(char *inputText, int key);
 void keyDecoder(char *inputText, int key);
-void rotDecoder(char *inputText, int limit, int key);
+void rotDecoder(char *inputText, int limit, int key, char ec);
 void subDecoder(char *inputText, int *wordMap);
 
 
 int main(){
     char inputText[100];
+    int letterCount[100];
     int key = 23;        //hardcoded atm
     int i;
     int limit;
+    char e, e2, ec;
     //int wordMap[10];
     
     FILE *input/*, output*/;
@@ -28,29 +30,98 @@ int main(){
     for(i = 0; feof(input) == 0; i++){          //scans file to inputText string
         char *c;
         c = &inputText[i];
-        printf("%d ", i);
+        //printf("%d ", i);
         fscanf(input, "%c", c);
         limit = i;
-        
-    }
-        printf("\n");
+    } //printf("\n");
+    
+    
 
+    
+    for(i = 0; feof(input) == 0; i++){          //counts how frequently each letter appears
+        if(inputText[i] == ' '){
+            i++;
+        }if(inputText[i] == 'A'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'B'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'C'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'D'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'E'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'F'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'G'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'H'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'I'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'J'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'K'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'L'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'M'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'N'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'O'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'P'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'Q'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'R'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'S'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'T'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'U'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'V'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'W'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'X'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'Y'){
+            letterCount[i] = letterCount[i] + 1;
+        }if(inputText[i] == 'Z'){
+            letterCount[i] = letterCount[i] + 1;
+        }
+    }
+    printf("%d", E);
+    printf("\n");
+    for(i = 0; e <= 25; e++){
+        if(e > e2){
+            ec = e;}
+        e2 = e;
+        e++;
+        printf("%c", e);
+        printf("\n");
+    }
+    
             
-    printf("Input  : ");
+    //printf("Input  : ");                        //printing
     for (i = 0; i <= 99; i++)
-        printf("%c ", inputText[i]);
+        //printf("%c ", inputText[i]);
         
-    printf("\nEncoded: ");
-    keyEncoder(inputText, key);
-    for (i = 0; i <= 99; i++)
-        printf("%c ", inputText[i]);
+    //printf("\nEncoded: ");
+   // keyEncoder(inputText, key);
+    //for (i = 0; i <= 99; i++)
+        //printf("%c ", inputText[i]);
         
-    rotDecoder(inputText, limit, key);
+    rotDecoder(inputText, limit, key, ec);
         
-    printf("\nDecoded: ");
+    //printf("\nDecoded: ");
     keyDecoder(inputText, key);
-        for (i = 0; i <= 99; i++)
-            printf("%c ", inputText[i]);
+        //for (i = 0; i <= 99; i++)
+            //printf("%c ", inputText[i]);
     }
     
     
@@ -64,7 +135,7 @@ int main(){
 }*/
 
 //---------------------------------------------rotDecoder-----------------------------------------------------//
-void rotDecoder(char *inputText, int limit, int key){       //similiar to keyDecoder but will run until all the words are real, option to say no this isnt it
+void rotDecoder(char *inputText, int limit, int key, char ec){       //similiar to keyDecoder but will run until all the words are real, option to say no this isnt it
     int n = 0;
     for(n = 0; n < limit; n++){
         
@@ -83,7 +154,10 @@ void rotDecoder(char *inputText, int limit, int key){       //similiar to keyDec
                 key = inputText[n] - 'T';
                 return;
             }
-        }  
+        }else{
+            
+            
+        }  // most frequent is e
     }
 }
 
