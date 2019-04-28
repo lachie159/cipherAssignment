@@ -3,18 +3,18 @@
 #include <stdlib.h>
 void keyEncoder(char *inputText, int key);
 void keyDecoder(char *inputText, int key);
-void rotDecoder(char *inputText, int limit, int *keyf);
+void keyFinder(char *inputText, int limit, int *keyf);
 
 
 int main(){
     char inputText[1000];
-    int key;        //hardcoded atm
+    int key = 0;        //hardcoded atm
     int *keyf;
     keyf = &key;
     int i;
     int limit;
     int answer;
-    printf("         Welcome to the Dakota Encoder/Decoder\n\nMy name is not Dakota but I found the wordplay slightly amusing\n\n");
+    printf("          Welcome to the Dakota Encoder/Decoder\n\nMy name is not Dakota but I found the wordplay slightly amusing\n\n");
     printf("1) Encrypt with key \n2) Decrypt with key \n3) Decrypt without key (only works for sentences containing 'the')\n");
     //scanf("%d", &answer);
     answer = 3;
@@ -22,11 +22,11 @@ int main(){
         return 0;
     
     switch(answer){
-        case 1: printf("Please enter the text into 'input.txt'\n"); printf("What is the key? "); scanf("%d", &key); break;
-        case 2: printf("Please enter the encrypted code into 'input.txt'\n"); printf("What is the key? "); scanf("%d", &key); break;
-        case 3: printf("Please enter the encrypted code into 'input.txt'\n"); break;
+        case 1: printf("\nPlease enter the text into 'input.txt'\n"); printf("What is the key? "); scanf("%d", &key); break;
+        case 2: printf("\nPlease enter the encrypted code into 'input.txt'\n"); printf("What is the key? "); scanf("%d", &key); break;
+        case 3: printf("\nPlease enter the encrypted code into 'input.txt'\n"); break;
     }
-        if(key > 26 || key < 1){
+        if(key > 26 || key < 0){
             return 0;
         }
         
@@ -47,43 +47,45 @@ int main(){
         c = &inputText[i];
         fscanf(input, "%c", c);
         limit = i;
-    } printf("\n");
-    
-    
+    }
     
     
     switch(answer){
-        case 1: printf("Input  : ");                        //printing
+        case 1: keyEncoder(inputText, key);
+                printf("\nDecoded: ");
+                
                 for (i = 0; i <= 99; i++)
                     printf("%c ", inputText[i]);
-        
-                printf("\nEncoded: ");
-                keyEncoder(inputText, key);
+                break;
+                
+        case 2: keyDecoder(inputText, key);
+                printf("\nDecoded: ");
+                
                 for (i = 0; i <= 99; i++)
                     printf("%c ", inputText[i]);
-        case 2: break;
-        case 3: printf("Input  : ");                        //printing
+                break;
+                
+        case 3: printf("\nInput  : ");
                 for (i = 0; i <= 99; i++)
                     printf("%c ", inputText[i]);
                 printf("\n");
                 
-                rotDecoder(inputText, limit, keyf);
-                
+                keyFinder(inputText, limit, keyf);
+                if(key < 0)
+                    key += 26;
+                printf("Key    : %d", key);
                 keyDecoder(inputText, key);
                 printf("\nDecoded: ");
                 
                 for (i = 0; i <= 99; i++)
                     printf("%c ", inputText[i]);
+                break;
     }
-    
-
-
-
 }
 
 
-//---------------------------------------------rotDecoder-----------------------------------------------------//
-void rotDecoder(char *inputText, int limit, int *keyf){
+//---------------------------------------------keyFinder-----------------------------------------------------//
+void keyFinder(char *inputText, int limit, int *keyf){
     int n;
     for(n = 0; n < limit; n++){
         
