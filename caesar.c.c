@@ -28,6 +28,8 @@ int main(){
         if(key > 26 || key < 1){
             return 0;
         }
+        
+        
     FILE *input/*, output*/;
     input = fopen("input.txt", "r");
         if(input == NULL){
@@ -42,10 +44,11 @@ int main(){
     for(i = 0; feof(input) == 0; i++){          //scans file to inputText string
         char *c;
         c = &inputText[i];
-        printf("%d ", i);
         fscanf(input, "%c", c);
         limit = i;
     } printf("\n");
+    
+    
     
     
     switch(answer){
@@ -57,29 +60,33 @@ int main(){
                 keyEncoder(inputText, key);
                 for (i = 0; i <= 99; i++)
                     printf("%c ", inputText[i]);
-        case 4: rotDecoder(inputText, limit, key);
+        case 4: printf("Input  : ");
+                for (i = 0; i <= 99; i++)
+                    printf("%c ", inputText[i]);
+                    printf("\n");
         
+                rotDecoder(inputText, limit, key);
+
                 printf("\nDecoded: ");
                 keyDecoder(inputText, key);
-                for (i = 0; i <= 99; i++){
-                    printf("%c ", inputText[i]);}
+                for (i = 0; i <= 99; i++)
+                    printf("%c ", inputText[i]);
     }
     
-    
-    
-   
-    
-    
-
-
-
+  
+/*
+printf("\nEncoded: ");
+                keyEncoder(inputText, key);
+                for (i = 0; i <= 99; i++)
+                    printf("%c ", inputText[i]);
+*/
 
 
 
 
 
             
-    printf("Input  : ");                        //printing
+    /*printf("Input  : ");                        //printing
     for (i = 0; i <= 99; i++)
         printf("%c ", inputText[i]);
         
@@ -93,14 +100,13 @@ int main(){
     printf("\nDecoded: ");
     keyDecoder(inputText, key);
         for (i = 0; i <= 99; i++){
-            printf("%c ", inputText[i]);
-    }
+            printf("%c ", inputText[i]); 
+    } */
 }
 
 
-
 //---------------------------------------------rotDecoder-----------------------------------------------------//
-void rotDecoder(char *inputText, int limit, int key){       //similiar to keyDecoder but will run until all the words are real, option to say no this isnt it
+void rotDecoder(char *inputText, int limit, int key){
     int n = 0;
     for(n = 0; n < limit; n++){
         
@@ -119,10 +125,7 @@ void rotDecoder(char *inputText, int limit, int key){       //similiar to keyDec
                 key = inputText[n] - 'T';
                 return;
             }
-        }else{
-            
-            
-        }  // most frequent is e
+        }
     }
 }
 
@@ -149,8 +152,8 @@ void keyEncoder(char *inputText, int key){
 
 void keyDecoder(char *inputText, int key){
     int n = 0;
-    while(((inputText[n] >= 'A') && (inputText[n] <= 'Z')) || (inputText[n] == ' ')){ 
-        if(inputText[n] == ' '){
+    while(((inputText[n] >= 'A') && (inputText[n] <= 'Z')) || (inputText[n] == ' ') || (inputText[n] == ':') || (inputText[n] == ',') || (inputText[n] == 96) ){ 
+        if(inputText[n] > 'Z' || inputText[n] < 'A'){
             inputText[n] = inputText[n] - key - 26;
         }
         inputText[n] = inputText[n] + key;
