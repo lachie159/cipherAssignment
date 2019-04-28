@@ -17,7 +17,7 @@ int main(){
     printf("          Welcome to the Dakota Encoder/Decoder\n\nMy name is not Dakota but I found the wordplay slightly amusing\n\n");
     printf("1) Encrypt with key \n2) Decrypt with key \n3) Decrypt without key (only works for sentences containing 'the')\n");
     //scanf("%d", &answer);
-    answer = 3;
+    answer = 2;
     if(answer > 3 || answer < 1)
         return 0;
     
@@ -29,7 +29,7 @@ int main(){
         if(key > 26 || key < 0){
             return 0;
         }
-        
+    key = 12;    
         
     FILE *input/*, output*/;
     input = fopen("input.txt", "r");
@@ -58,7 +58,12 @@ int main(){
                     printf("%c ", inputText[i]);
                 break;
                 
-        case 2: keyDecoder(inputText, key);
+        case 2: printf("\nInput  : ");
+                for (i = 0; i <= 99; i++)
+                    printf("%c ", inputText[i]);
+                printf("\n");
+                printf("Key    : %d", key);
+                keyDecoder(inputText, key);
                 printf("\nDecoded: ");
                 
                 for (i = 0; i <= 99; i++)
@@ -74,6 +79,7 @@ int main(){
                 if(key < 0)
                     key += 26;
                 printf("Key    : %d", key);
+                
                 keyDecoder(inputText, key);
                 printf("\nDecoded: ");
                 
@@ -84,7 +90,7 @@ int main(){
 }
 
 
-//---------------------------------------------keyFinder-----------------------------------------------------//
+//-----------------------------keyFinder-----------------------------------------------------//
 void keyFinder(char *inputText, int limit, int *keyf){
     int n;
     for(n = 0; n < limit; n++){
@@ -121,7 +127,7 @@ void keyEncoder(char *inputText, int key){
 
 void keyDecoder(char *inputText, int key){
     int n = 0;
-    while(((inputText[n] >= 'A') && (inputText[n] <= 'Z')) || (inputText[n] == ' ') || (inputText[n] == ':') || (inputText[n] == ',') || (inputText[n] == 96) ){ 
+    while(((inputText[n] >= 'A') && (inputText[n] <= 'Z')) || (inputText[n] == ' ') || (inputText[n] == ':') || (inputText[n] == ',') || (inputText[n] == 96) || (inputText[n] == '.') ){ 
         if(inputText[n] > 'Z' || inputText[n] < 'A'){
             inputText[n] = inputText[n] - key - 26;
         }
