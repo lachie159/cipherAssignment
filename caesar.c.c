@@ -57,33 +57,34 @@ int main(){
     
     
     switch(answer){
-        case 1: if(key == 0){
+        case 1: if(key == 0){       //prints encrypted text and the key used
                     key = 3;
                 }
                 printf("\nKey    : %d", key);
                 keyEncoder(inputText, key);
                 printf("\nEncoded: ");
                 
-                for (i = 0; i <= 999; i++)
+                for (i = 0; i < limit; i++)
                     printf("%c ", inputText[i]);
                 printf("\n");
                 return 0;
                 
-        case 2: printf("\nInput  : ");
-                for (i = 0; i <= limit; i++)
+        case 2: printf("\nInput  : ");       //prints code decrypted with key
+                for (i = 0; i < limit; i++)
                     printf("%c ", inputText[i]);
-                printf("\n");
+                printf("\n\n");
                 printf("Key    : %d", key);
+                key -= key;
                 keyDecoder(inputText, key);
                 printf("\nDecoded: ");
                 
-                for (i = 0; i <= limit; i++)
+                for (i = 0; i < limit; i++)
                     printf("%c ", inputText[i]);
                 printf("\n");
                 return 0;
                 
-        case 3: printf("\nInput  : ");
-                for (i = 0; i <= limit; i++)
+        case 3: printf("\nInput  : ");      //prints code decryptes without key
+                for (i = 0; i < limit; i++)
                     printf("%c ", inputText[i]);
                 printf("\n");
                 
@@ -129,7 +130,8 @@ void keyFinder(char *inputText, int limit, int *keyf){
     int n;
     for(n = 0; n < limit; n++){
         
-        if((inputText[n + 1] == inputText[n] - 12) || (inputText[n + 1] == inputText[n] + 14))
+        //calculates the difference between the letter T and H then T and E which are 12 and 15
+        if((inputText[n + 1] == inputText[n] - 12) || (inputText[n + 1] == inputText[n] + 14))      
             if((inputText[n + 2] == inputText[n] - 15) || (inputText[n + 2] == inputText[n] + 11)){
                 *keyf = 'T' - inputText[n];
                 return;
@@ -144,11 +146,11 @@ void keyFinder(char *inputText, int limit, int *keyf){
 void keyEncoder(char *inputText, int key){
     int n = 0;
     while(((inputText[n] >= 'A') && (inputText[n] <= 'Z')) || (inputText[n] == ' ') || (inputText[n] == ':') || (inputText[n] == ',') || (inputText[n] == '\'') || (inputText[n] == '.') || (inputText[n] == '-')){
-        if(inputText[n] > 'Z' || inputText[n] < 'A'){
-            inputText[n] = inputText[n] + key - 26;
+        if(inputText[n] > 'Z' || inputText[n] < 'A'){           //leaves none letters untouched
+            inputText[n] = inputText[n] + key - 26; 
         }
         inputText[n] = inputText[n] - key;
-        if(inputText[n] < 'A'){
+        if(inputText[n] < 'A'){     //corrects in case a letter leaves to A-Z domain
            inputText[n] = inputText[n] + 26;
         }else if(inputText[n] > 'Z'){
             inputText[n] = inputText[n] - 26;
@@ -164,11 +166,11 @@ void keyEncoder(char *inputText, int key){
 void keyDecoder(char *inputText, int key){
     int n = 0;
     while(((inputText[n] >= 'A') && (inputText[n] <= 'Z')) || (inputText[n] == ' ') || (inputText[n] == ':') || (inputText[n] == ',') || (inputText[n] == '\'') || (inputText[n] == '.') || (inputText[n] == '-')){ 
-        if(inputText[n] > 'Z' || inputText[n] < 'A'){
+        if(inputText[n] > 'Z' || inputText[n] < 'A'){          //leaves none letters untouched
             inputText[n] = inputText[n] - key - 26;
         }
         inputText[n] = inputText[n] + key;
-        if(inputText[n] < 'A'){
+        if(inputText[n] < 'A'){        //corrects in case a letter leaves to A-Z domain
             inputText[n] = inputText[n] + 26;
         }else if(inputText[n] > 'Z'){
             inputText[n] = inputText[n] - 26; 
@@ -182,11 +184,11 @@ void keyDecoder(char *inputText, int key){
 void allDecoder(char *inputText, int key){
     int n = 0;
     while(((inputText[n] >= 'A') && (inputText[n] <= 'Z')) || (inputText[n] == ' ') || (inputText[n] == ':') || (inputText[n] == ',') || (inputText[n] == '\'') || (inputText[n] == '.') || (inputText[n] == '-')){ 
-        if(inputText[n] > 'Z' || inputText[n] < 'A'){
+        if(inputText[n] > 'Z' || inputText[n] < 'A'){          //leaves none letters untouched
             inputText[n] = inputText[n] - key - 27;
         }
         inputText[n] = inputText[n] + key + 1;
-        if(inputText[n] < 'A'){
+        if(inputText[n] < 'A'){         //corrects in case a letter leaves to A-Z domain
             inputText[n] = inputText[n] + 26;
         }else if(inputText[n] > 'Z'){
             inputText[n] = inputText[n] - 26; 
