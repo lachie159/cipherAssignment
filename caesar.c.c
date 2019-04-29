@@ -15,9 +15,10 @@ int main(){
     int i;
     int limit;
     int answer;
+    char *w;
     printf("          Welcome to the Dakota Encoder/Decoder\n\nMy name is not Dakota but I found the wordplay slightly amusing\n\n");
     printf("1) Encrypt with key \n2) Decrypt with key \n3) Decrypt without key (only works for sentences containing 'the')\n");
-    answer = 1;
+    answer = 3;
     scanf("%d", &answer);
      //-------------------------------------------------------------------------
     if(answer > 3 || answer < 1)
@@ -32,7 +33,7 @@ int main(){
             return 0;
         }    
         
-    FILE *input/*, output*/;
+    FILE *input, *output;
     input = fopen("input.txt", "r");
         if(input == NULL){
             perror("fopen()");
@@ -58,7 +59,7 @@ int main(){
     
     switch(answer){
         case 1: if(key == 0){       //prints encrypted text and the key used
-                    key = 3;
+                    key = 6;
                 }
                 printf("\nKey    : %d", key);
                 keyEncoder(inputText, key);
@@ -67,6 +68,14 @@ int main(){
                 for (i = 0; i < limit; i++)
                     printf("%c ", inputText[i]);
                 printf("\n");
+                
+                output = fopen("output.txt", "w+");     //prints to output.txt
+                for (i = 0; i < limit; i++){
+                    w = &inputText[i];
+                    fprintf(output, "%c", *w);
+                }
+                fclose(output);
+
                 return 0;
                 
         case 2: printf("\nInput  : ");       //prints code decrypted with key
@@ -81,6 +90,14 @@ int main(){
                 for (i = 0; i < limit; i++)
                     printf("%c ", inputText[i]);
                 printf("\n");
+                
+                output = fopen("output.txt", "w+");     //prints to output.txt
+                for (i = 0; i < limit; i++){
+                    w = &inputText[i];
+                    fprintf(output, "%c", *w);
+                }
+                fclose(output);
+                
                 return 0;
                 
         case 3: printf("\nInput  : ");      //prints code decryptes without key
@@ -100,27 +117,51 @@ int main(){
                 for (i = 0; i < limit; i++)
                     printf("%c ", inputText[i]);
                 printf("\n");
+                
+                output = fopen("output.txt", "w+");     //prints to output.txt
+                for (i = 0; i < limit; i++){
+                    w = &inputText[i];
+                    fprintf(output, "%c", *w);
+                }
+                fclose(output);
+                
                 return 0;
                 }else{
+                    output = fopen("output.txt", "w+");
+                    fprintf(output, "\n");
+                    fclose(output);
+                    output = fopen("output.txt", "w");
                     for(key = 1; key < 26; key++){
                         allDecoder(inputText, key);
-                        
-                        printf("\n");
-                        
-                        
-                        
+                          
                         printf("\nDecoded: ");
-                        for (i = 0; i < limit; i++)
+                        for (i = 0; i < limit; i++){
                             printf("%c ", inputText[i]);
-                            printf("\n");
+
+                            w = &inputText[i];
+                            fprintf(output, "%c", *w);
+                            
+                        }
+
+                        printf("\n");
+                        fprintf(output, "\n\n");
                             
                         keyDecoder(inputText, key);
                         printf("\nDecoded: ");
-                        for (i = 0; i < limit; i++)
+                        for (i = 0; i < limit; i++){
                             printf("%c ", inputText[i]); 
+                            
+                            w = &inputText[i];
+                            fprintf(output, "%c", *w);
+                            
+                        }
+                        printf("\n");   
+                        fprintf(output, "\n\n");
                     }
-                } 
-                return 0;
+
+                }fclose(output);
+                 return 0;
+                
     }
 }
 
